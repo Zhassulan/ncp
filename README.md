@@ -1,11 +1,11 @@
 ## NCP FE
 
 ### Описание
-Приложение входит в группу приложений NCP. Ссылка на [UI Production](https://b2b.tele2.kz/ncp-frontend/#/login).
-Ссылка на [UI Test](https://b2b.tele2.kz/ncp-frontend-test/#/login).
+Приложение входит в группу приложений NCP. Ссылка на [UI Production](https://b2b.ttk.kz/ncp-frontend/#/login).
+Ссылка на [UI Test](https://b2b.ttk.kz/ncp-frontend-test/#/login).
 Разработан в рамках проекта миграции с Angular версии 1.8 на 2-е поколение
 Angular 19. Реализованы основные операции для работы с разноской платежей.
-Работает на сервере b2b.tele2.kz [10.200.200.22] в Docker контейнере и маршрутизируется NGinx.
+Работает на сервере b2b.ttk.kz [10.200.200.22] в Docker контейнере и маршрутизируется NGinx.
 При локальной доработке чтобы не было проблем с аутентификацией (проблема порта,
 чтобы принимались аут. куки) надо настроить, включить расширение proxy и запустить
 Apache HTTPD с конфигом "D:\dev\apache\httpd\2.4.38\conf\extra\httpd-vhosts.conf".
