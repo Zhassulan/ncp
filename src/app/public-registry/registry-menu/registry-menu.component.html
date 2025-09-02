@@ -1,0 +1,10 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Действия">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="export()">
+      <span>Выгрузка</span>
+    </button>
+  </mat-menu>
+</div>

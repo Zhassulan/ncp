@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Введите параметры детали шаблона</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>MSISDN</mat-label>
+    <input matInput [(ngModel)]="data.detail.msisdn">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Счет</mat-label>
+    <input matInput [(ngModel)]="data.detail.account">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Сумма</mat-label>
+    <input matInput [(ngModel)]="data.detail.sum">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Отмена</button>
+  <button mat-button [mat-dialog-close]="data.detail" cdkFocusInitial>Ok</button>
+</div>

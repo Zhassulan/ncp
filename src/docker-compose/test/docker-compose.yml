@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  ncp-ui-test:
+    restart: always
+    image: docker.tele2.kz/other_team/ncp/ncp-frontend-app:test
+    network_mode: bridge
+    ports:
+      - "4201:80"
+    container_name: ncp-ui-test
+    volumes:
+      - "nfs-share:/var/log/nginx"
+      - "nfs-share:/tmp"
+volumes:
+  nfs-share:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.200.200.3,rw"
+      device: ":/nfs/ncp/ncp-frontend-app-test/"

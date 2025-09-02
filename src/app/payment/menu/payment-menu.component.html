@@ -1,0 +1,43 @@
+<div *ngIf="payment() && canEditPayment()">
+  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Действия">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [disabled]="!canPasteRegistryFromBuffer()" (click)="select(paymentMenuItems.REGISTRY)">
+      <span>Реестр</span>
+    </button>
+    <button mat-menu-item [disabled]="!canLoadEquipment()" (click)="select(paymentMenuItems.LOAD_EQUIPMENT)">
+      <span>Оборудование</span>
+    </button>
+    <button mat-menu-item [disabled]="!canLoadEquipment()" (click)="select(paymentMenuItems.TEMPLATE)">
+      <span>Шаблон</span>
+    </button>
+    <button mat-menu-item [disabled]="!canTransit()" (click)="select(paymentMenuItems.TRANSIT)">
+      <span>На транзит</span>
+    </button>
+    <button mat-menu-item [disabled]="!canDelTransit()" (click)="select(paymentMenuItems.DEL_TRANSIT)">
+      <span>Удалить с транзита</span>
+    </button>
+    <button mat-menu-item [disabled]="!canDefer()" (click)="select(paymentMenuItems.DEFER)">
+      <span>Отложить</span>
+    </button>
+    <button mat-menu-item [disabled]="!canDistribute()" (click)="select(paymentMenuItems.DISTRIBUTE)">
+      <span>Разнести</span>
+    </button>
+    <button mat-menu-item [disabled]="!canDistributeMobipay()" (click)="select(paymentMenuItems.DISTRIBUTE_MOBIPAY)">
+      <span>Разнести Mobipay</span>
+    </button>
+    <button mat-menu-item [disabled]="!canDel()" (click)="select(paymentMenuItems.DEL)">
+      <span>Удалить</span>
+    </button>
+    <button mat-menu-item [disabled]="!canDelFromDeferred()" (click)="select(paymentMenuItems.CANCEL_DEFERRED)">
+      <span>Отменить отложенный</span>
+    </button>
+    <button mat-menu-item [disabled]="!canCancelMobipay()" (click)="select(paymentMenuItems.CANCEL_MOBIPAY)">
+      <span>Отменить Mobipay</span>
+    </button>
+    <button mat-menu-item [disabled]="!canExportRegistry()" (click)="select(paymentMenuItems.DOWNLOAD_REGISTRY)">
+      <span>Выгрузить разноски</span>
+    </button>
+  </mat-menu>
+</div>

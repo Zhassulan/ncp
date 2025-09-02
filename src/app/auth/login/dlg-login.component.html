@@ -1,0 +1,22 @@
+<div ngClass="container">
+        <div ngClass="title">
+            <h1 mat-dialog-title>Вход в NCP</h1>
+        </div>
+        <div ngClass="login">
+            <mat-form-field>
+                <input matInput placeholder="ivan.ivanov" required [(ngModel)]="userName" name="userName">
+            </mat-form-field>
+        </div>
+        <div ngClass="pwd">
+            <mat-form-field>
+                <input matInput placeholder="Пароль" type="password" required [(ngModel)]="userPassword"
+                       name="userPassword" (keyup.enter)="onEnter()">
+            </mat-form-field>
+        </div>
+        <div ngClass="btnLogin">
+            <button mat-raised-button color="primary" (click)="login()">Войти</button>
+        </div>
+        <div ngClass="btnCancel">
+            <button mat-raised-button color="primary" [mat-dialog-close]="" cdkFocusInitial>Отмена</button>
+        </div>
+</div>

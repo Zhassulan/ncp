@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+}
+
+.header {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto;
+}
+
+.date-range-container {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto 10% 10%;
+  justify-content: start;
+}
+
+.search {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto;
+  justify-content: end;
+}
+
+.item {
+  justify-self: center;
+  align-self: center;
+}
+
+/*# sourceMappingURL=hidden-payments.component.css.map */

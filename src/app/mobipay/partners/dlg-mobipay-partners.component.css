@@ -1,0 +1,31 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-table .mat-mdc-row:hover {
+  background-color: #eeeeee;
+}
+
+.container {
+  display: grid;
+  grid-template-areas: "title" "content" "close";
+  grid-template-rows: auto auto 6vh;
+  grid-template-columns: auto;
+}
+
+.title {
+  grid-area: title;
+  align-self: center;
+  justify-self: center;
+}
+
+.content {
+  grid-area: msg;
+}
+
+.btnClose {
+  grid-area: close;
+  justify-self: end;
+}
+
+/*# sourceMappingURL=dlg-mobipay-partners.component.css.map */

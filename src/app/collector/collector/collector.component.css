@@ -1,0 +1,29 @@
+.wrapper {
+  display: grid;
+  grid-template-areas: ". . .";
+  grid-template-rows: auto;
+  grid-template-columns: 10% auto 10%;
+  padding: 5% 5% 5% 5%;
+}
+
+.table-container {
+  border: 1px solid lightgray;
+}
+
+.mat-column-client {
+  flex: 0 2 70% !important;
+}
+
+.mat-column-bin {
+  flex: 0 2 20% !important;
+}
+
+.mat-column-branch {
+  flex: 0 2 20% !important;
+}
+
+.mat-column-menu {
+  flex: 0 2 10% !important;
+}
+
+/*# sourceMappingURL=collector.component.css.map */

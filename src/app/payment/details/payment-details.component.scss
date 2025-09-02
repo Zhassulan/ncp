@@ -1,0 +1,21 @@
+.mat-mdc-table {
+    display: table;
+    width: 100%;
+}
+.mat-mdc-header-row, .mat-mdc-row {
+    display: table-row;
+}
+
+.mat-mdc-header-cell, .mat-mdc-cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 1%;
+    /* word-wrap: break-word; */
+}
+.mat-mdc-row:hover {
+    background-color: #eeeeee;
+}
+
+.boldText {
+    font-weight: bold;
+}

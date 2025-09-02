@@ -1,0 +1,125 @@
+table {
+  width: 100%;
+}
+
+mat-cell, .mat-cell {
+  display:block; // flex prevents padding from working
+  min-height:auto; // overrides the 'inherit' that set the min height of the row
+  padding: 12px 16px 12px 0;
+}
+
+.mat-column-sum {
+  flex: 0 2 7% !important;
+}
+
+.mat-column-paymentId {
+  flex: 0 2 7% !important;
+}
+
+.mat-column-id {
+  flex: 0 2 7% !important;
+}
+
+.mat-column-status {
+  flex: 0 2 10% !important;
+}
+
+.mat-column-bin {
+  flex: 0 2 7% !important;
+}
+
+.mat-column-docnum {
+  flex: 0 2 4% !important;
+}
+
+.mat-column-knp {
+  flex: 0 2 5% !important;
+}
+
+.mat-column-agent {
+  flex: 0 2 7% !important;
+}
+
+.mat-column-account {
+  flex: 0 2 12% !important;
+}
+
+.mat-column-created {
+  flex: 0 2 5% !important;
+}
+
+.mat-column-rowMenu {
+  flex: 0 2 4% !important;
+}
+
+.mat-column-sender {
+  flex: 0 2 15% !important;
+}
+
+.mat-column-details {
+  flex: 0 2 20% !important;
+}
+
+section#section-green {
+  display: block;
+  width: 70%;
+  background: lightgreen;
+  padding: 10px 10px;
+}
+
+.make-green {
+  background-color: palegreen;
+}
+
+section#section-red {
+  display: block;
+  width: 70%;
+  background: lightcoral;
+  padding: 10px 10px;
+}
+
+.make-red {
+  background-color: lightcoral;
+}
+
+.make-yellow-light {
+  background-color: lightgoldenrodyellow
+}
+
+section#section-yellow {
+  display: block;
+  width: 70%;
+  background: lightgoldenrodyellow;
+  padding: 10px 10px;
+}
+
+section#section-yellow-bright {
+  display: block;
+  width: 70%;
+  background: yellow;
+  padding: 10px 10px;
+}
+
+.make-yellow {
+  background-color: yellow
+}
+
+section#section-grey {
+  display: block;
+  width: 70%;
+  background: darkgray;
+  padding: 10px 10px;
+}
+
+.make-grey {
+  background-color: darkgray
+}
+
+.status-value {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: space-around;
+}

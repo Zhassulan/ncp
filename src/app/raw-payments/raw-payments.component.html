@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div>
+    <div class="header">
+
+      <div class="date-range-container">
+        <div>
+          <app-date-range></app-date-range>
+        </div>
+        <div>
+          <button mat-raised-button color="primary" (click)="loadData()" matTooltip="Загрузить данные за даты">
+            Загрузка
+          </button>
+        </div>
+        <div>
+          <button mat-raised-button color="primary" (click)="export()" matTooltip="Экспорт в Excel">
+            Экспорт
+          </button>
+        </div>
+      </div>
+
+      <div class="search">
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Поиск" [(ngModel)]="searchInput" name="searchInput"
+                   (keydown.enter)="onKeydown($event)">
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-raised-button color="primary" (click)="findClick()">Поиск</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <app-payments-table></app-payments-table>
+  </div>
+
+</div>

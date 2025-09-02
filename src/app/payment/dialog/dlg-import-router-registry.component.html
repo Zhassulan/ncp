@@ -1,0 +1,21 @@
+<input type="file" #file style="display: none" (change)="onFileAdded()"/>
+
+<div class="mainContainer">
+    <div class="title">
+        <h1 mat-dialog-title>Загрузка файла</h1>
+    </div>
+
+    <div class="fileName" ngClass="mat-title">
+        <h1 class="mat-body" *ngIf="fileObj">{{ fileObj.name}}</h1>
+    </div>
+    <div class="btnOpen">
+        <button mat-raised-button color="primary" class="add-files-btn" (click)="addFile()"> Открыть файл </button>
+    </div>
+    <div class="btnProcess">
+        <button mat-raised-button color="primary" (click)="upload()" *ngIf="showUploadButton"> Обработка </button>
+    </div>
+    <div class="btnCancel">
+        <button mat-raised-button color="primary" [mat-dialog-close]="'cancel'"> Отмена </button>
+    </div>
+
+</div>

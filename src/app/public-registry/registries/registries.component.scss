@@ -1,0 +1,57 @@
+.container {
+    display: grid;
+    grid-template-areas:
+            "top"
+            "registries";
+    grid-template-rows: auto auto;
+    grid-template-columns: auto;
+    justify-items: stretch;
+    padding: 0.5em;
+}
+
+.top {
+    grid-area: top;
+}
+
+.registries {
+    grid-area: registries;
+}
+
+.item {
+    justify-self: center;
+    align-self: center;
+}
+
+.search {
+    grid-area: search;
+    justify-self: end;
+}
+
+.header {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns:
+            minmax(max-content, max-content)
+            minmax(max-content, max-content)
+            minmax(max-content, max-content)
+            minmax(max-content, max-content)
+            minmax(max-content, auto);
+    grid-template-areas:
+            "item item item item item search"
+            "registries registries registries registries registries registries";
+    gap: 5px;
+}
+
+.mat-mdc-table .mat-mdc-row:hover {
+    background-color: #eeeeee;
+}
+
+.mat-column-ID {
+    flex: 0 0 5% !important;
+    width: 5% !important;
+}
+
+.mat-column-rowMenu {
+    flex: 0 0 2% !important;
+    width: 2% !important;
+}

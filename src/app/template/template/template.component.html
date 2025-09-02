@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="container_item">
+    <div class="template" id="shadow_box" *ngIf="profile && template">
+      <div class="title_box">
+        <h2 class="mat-h2">Шаблон ID {{ template.id }}</h2>
+      </div>
+      <div class="menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onAddDetail()">
+            <span>Добавить запись</span>
+          </button>
+          <button mat-menu-item (click)="onDeleteDetail()">
+            <span>Удалить запись</span>
+          </button>
+          <button mat-menu-item (click)="onApplyPayment()">
+            <span>Применить для платежа</span>
+          </button>
+        </mat-menu>
+      </div>
+      <div class="company">
+        <h3 class="mat-h3">Компания "{{ profile.clientName }}"</h3>
+      </div>
+      <div class="bin">
+        <h3 class="mat-h3">БИН {{ profile.clientIIN ? profile.clientIIN : profile.clientBIN  }}</h3>
+      </div>
+      <div class="search">
+        <mat-form-field>
+          <mat-label>Поиск..</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="поиск" #input>
+        </mat-form-field>
+      </div>
+      <div class="table">
+        <app-template-details-table [template]="template" (reload)="onReload($event)"></app-template-details-table>
+      </div>
+    </div>
+  </div>
+</div>

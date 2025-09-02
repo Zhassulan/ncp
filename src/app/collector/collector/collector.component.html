@@ -1,0 +1,62 @@
+<div class="wrapper">
+
+  <div></div>
+
+  <div class="table-container">
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="profileId">
+        <mat-header-cell *matHeaderCellDef> profile ID</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.profileId }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="client">
+        <mat-header-cell *matHeaderCellDef> Название</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.clientProfile.clientName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="bin">
+        <mat-header-cell *matHeaderCellDef> ИИН/БИН</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.clientProfile.clientIin }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="branch">
+        <mat-header-cell *matHeaderCellDef> Склад</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.branch }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="menu">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Действия справочника">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="add()">
+              <span>Добавить</span>
+            </button>
+          </mat-menu>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Действия элемента">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="del(element)">
+              <span>Удалить</span>
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+  <div></div>
+
+</div>

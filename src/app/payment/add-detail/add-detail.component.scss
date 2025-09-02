@@ -1,0 +1,24 @@
+.container {
+    display: grid;
+    grid-template-columns: 20% 70%;
+    grid-template-rows: 60px auto;
+    grid-template-areas:
+            "gridItem1 gridItem2"
+            "gridItem3 gridItem4";
+}
+
+.item1 {
+    grid-area: gridItem1;
+}
+
+.item2 {
+    grid-area: gridItem2;
+}
+
+.item3 {
+    grid-area: gridItem3;
+}
+
+.item4 {
+    grid-area: gridItem4;
+}

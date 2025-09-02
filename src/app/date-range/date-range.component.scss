@@ -1,0 +1,15 @@
+.dr_container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns:
+            minmax(max-content, max-content)
+            minmax(max-content, max-content);
+    grid-template-areas:
+            "dr_item dr_item";
+    gap: 5px;
+}
+
+.dr_item {
+    justify-self: center;
+    align-self: center;
+}

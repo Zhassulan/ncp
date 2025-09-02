@@ -1,0 +1,19 @@
+<mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="num">
+        <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+        <mat-cell *matCellDef="let i = index;">
+            {{ paginator.pageIndex < 1 ? i + 1 : (i + 1) + (paginator.pageIndex * 10) }}
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="msisdn">
+        <mat-header-cell *matHeaderCellDef> номер </mat-header-cell>
+        <mat-cell *matCellDef="let detail">{{ detail.msisdn |  phonePipe }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> сумма </th>
+        <td mat-cell *matCellDef="let detail">{{ detail.amount | currency : ' тг.'}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>
+<mat-paginator [length]="paginatorResultsLength" [pageSize]="10"></mat-paginator>

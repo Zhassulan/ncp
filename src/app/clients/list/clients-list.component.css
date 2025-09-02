@@ -1,0 +1,81 @@
+.container {
+  display: grid;
+  grid-template-areas: "top" "profiles";
+  grid-template-rows: auto auto;
+  grid-template-columns: auto;
+  justify-items: stretch;
+  padding: 0.5em;
+}
+
+.top {
+  grid-area: top;
+}
+
+.item {
+  justify-self: center;
+  align-self: center;
+}
+
+.update {
+  grid-area: update;
+  justify-self: end;
+  align-self: center;
+}
+
+.header {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: minmax(max-content, max-content) minmax(max-content, max-content) minmax(max-content, auto);
+  grid-template-areas: "item item find update" "profiles profiles profiles";
+  gap: 5px;
+}
+
+.profiles {
+  grid-area: profiles;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-column-No {
+  flex: 0 0 5% !important;
+  width: 5% !important;
+}
+
+.mat-column-bin {
+  flex: 0 0 10% !important;
+  width: 10% !important;
+}
+
+.mat-column-managedBy {
+  flex: 0 0 20% !important;
+  width: 20% !important;
+}
+
+.mat-column-types {
+  flex: 0 0 15% !important;
+  width: 15% !important;
+}
+
+.mat-column-segments {
+  flex: 0 0 15% !important;
+  width: 15% !important;
+}
+
+.mat-column-payments {
+  flex: 0 0 5% !important;
+  width: 5% !important;
+}
+
+.mat-column-profile {
+  flex: 0 0 5% !important;
+  width: 5% !important;
+}
+
+.highlighted {
+  background: darkseagreen;
+}
+
+/*# sourceMappingURL=clients-list.component.css.map */

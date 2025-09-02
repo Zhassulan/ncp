@@ -1,0 +1,16 @@
+.mat-mdc-table {
+  display: table;
+  width: 100%;
+}
+
+.spinner {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  height: 80%;
+}
+
+/*# sourceMappingURL=payment-actions.component.css.map */

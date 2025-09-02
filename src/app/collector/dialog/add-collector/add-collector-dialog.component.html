@@ -1,0 +1,21 @@
+<div class="wrapper">
+
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Склад" [formControl]="branch" required>
+      <mat-hint>Введите склад</mat-hint>
+      @if (branch.hasError('required')) {
+        <mat-error>Введите склад</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <div class="table-container">
+    <app-clients-list [isMobipay]="false" [isCollector]="true"></app-clients-list>
+  </div>
+
+  <div>
+    <button mat-button [mat-dialog-close]="{data: null}">Закрыть</button>
+  </div>
+
+</div>

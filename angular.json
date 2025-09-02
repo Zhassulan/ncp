@@ -1,0 +1,163 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ncp-frontend-app": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": {
+              "base": "dist"
+            },
+            "index": "src/index.html",
+            "polyfills": [
+              "src/polyfills.ts",
+              "@angular/localize/init"
+            ],
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/assets",
+              "src/manifest.webmanifest",
+              "src/manifest.webmanifest",
+              "src/assets/favicon.ico"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "extractLicenses": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true,
+            "serviceWorker": "ngsw-config.json",
+            "browser": "src/main.ts"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "publicHost": "http://localhost:4200",
+            "buildTarget": "ncp-frontend-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "ncp-frontend-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "ncp-frontend-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": [
+              "src/polyfills.ts",
+              "@angular/localize/init"
+            ],
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "src/assets",
+              "src/manifest.webmanifest",
+              "src/manifest.webmanifest"
+            ]
+          }
+        }
+      }
+    },
+    "ncp-frontend-app-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "ncp-frontend-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ncp-frontend-app:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "c9ef5467-3014-4c1e-9777-5b9ea3fd296d"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  }
+}

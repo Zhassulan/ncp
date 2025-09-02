@@ -1,0 +1,51 @@
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    ". ."
+    "."
+    ".";
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  padding: 1% 1% 1% 1%
+}
+
+.header {
+  display: grid;
+  grid-template-areas:
+    ". . .";
+  grid-template-rows: auto;
+  grid-template-columns: auto auto 60%;
+}
+
+.title {
+  justify-self: center;
+}
+
+.buttons {
+  display: grid;
+  grid-template-areas:
+    ". . .";
+  grid-template-rows: auto;
+  grid-template-columns: 90% auto auto;
+  padding: 1% 1% 1% 1%
+}
+
+.button {
+  justify-self: end;
+}
+
+.table-container {
+  border: 1px solid lightgray;
+}
+
+.mat-column-client {
+  flex: 0 2 70% !important;
+}
+
+.mat-column-bin {
+  flex: 0 2 70% !important;
+}
+
+.mat-column-menu {
+  flex: 0 2 10% !important;
+}

@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="container_item">
+        <div class="template" id="shadow_box">
+            <div class="title_box">
+                <h2 class="mat-h2">Шаблоны</h2>
+            </div>
+            <div class="menu">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onCreate()">
+                        <span>Создать</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete()">
+                        <span>Удалить</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <div class="company" *ngIf="profile">
+                <h3 class="mat-h3">Компания "{{ profile.clientName }}"</h3>
+            </div>
+            <div class="bin" *ngIf="profile">
+                <h3 class="mat-h3">БИН {{ profile.clientIIN ? profile.clientIIN : profile.clientBIN  }}</h3>
+            </div>
+            <div class="search">
+                <mat-form-field>
+                    <mat-label>Поиск..</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="поиск" #input>
+                </mat-form-field>
+            </div>
+            <div class="table">
+                <app-templates-table [profile]="profile"></app-templates-table>
+            </div>
+        </div>
+    </div>
+</div>

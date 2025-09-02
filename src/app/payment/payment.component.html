@@ -1,0 +1,41 @@
+<mat-tab-group>
+
+  <mat-tab label="Данные">
+
+    <div class="container">
+      <div style="height: 10px"></div>
+      <div class="payment">
+
+        <div class="header">
+          <div class="top">
+            <div class="item-top1">
+              <div *ngIf="payment()">
+                <h1 class="mat-h1">{{ payment().paymentId }} от {{ payment().created | date }}</h1>
+              </div>
+            </div>
+            <div class="item-top2">
+              <app-payment-menu [payment]="payment()" (selectedMenuItem)="menuOnSelected($event)"></app-payment-menu>
+            </div>
+          </div>
+        </div>
+
+        <div class="info">
+          <app-payment-info [payment]="payment()"></app-payment-info>
+        </div>
+
+        <div class="add-detail" *ngIf="payment()">
+          <app-add-detail [(payment)]="payment" *ngIf="paymentService.canAddDetail(payment())"></app-add-detail>
+        </div>
+
+        <div class="details" *ngIf="payment()">
+          <app-details [(payment)]="payment"></app-details>
+        </div>
+      </div>
+    </div>
+
+  </mat-tab>
+
+  <mat-tab label="Действия">
+    <app-payment-actions [payment]="payment()"></app-payment-actions>
+  </mat-tab>
+</mat-tab-group>

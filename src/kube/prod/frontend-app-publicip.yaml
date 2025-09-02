@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-app
+  namespace: ncp
+spec:
+  ports:
+  - port: 8291
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: frontend-app
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.245.75

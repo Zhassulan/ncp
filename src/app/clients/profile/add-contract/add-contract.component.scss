@@ -1,0 +1,33 @@
+.search-container {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto auto;
+  padding: 0.5em;
+}
+
+.mat-mdc-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.search-input-container {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 10fr;
+  padding: 0.5em;
+}
+
+.full-width {
+  width: 80%;
+}
+
+.buttons-container {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto 11% 11%;
+  padding: 0.5em;
+}
+
+.mat-mdc-table {
+  width: 90%;
+}
+

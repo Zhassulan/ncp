@@ -1,0 +1,129 @@
+<h3>Добавить контракт</h3>
+
+<mat-tab-group>
+
+  <mat-tab label="Поиск по БД Bercut">
+
+    <div class="search-container">
+
+      <div>Искать по</div>
+
+      <div>
+        <mat-radio-group aria-label="Выберите опцию" [(ngModel)]="radioOption">
+          <mat-radio-button value="payAccount">расчетному счету</mat-radio-button>
+          <mat-radio-button value="bin">ИИН</mat-radio-button>
+          <mat-radio-button value="title">названию</mat-radio-button>
+          <mat-radio-button value="msisdn">MSISDN</mat-radio-button>
+          <mat-radio-button value="account">Счет</mat-radio-button>
+          <mat-radio-button value="contractNum">№ контракта</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" (click)="searchClick()"> Поиск</button>
+      </div>
+
+    </div>
+
+    <div class="search-input-container">
+      <div>Значение</div>
+      <div>
+        <mat-form-field appearance="fill" class="full-width">
+          <input matInput [formControl]="searchInputFormControl"/>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div class="table_container">
+
+      <div></div>
+
+      <div>
+
+        <mat-table [dataSource]="dataSource"
+                   matSort
+                   matSortActive="creationDate"
+                   matSorirection="desc"
+                   matSorisableClear>
+
+          <ng-container matColumnDef="clientId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Клиент ID</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.bercutClientId }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="contractNumber">
+            <mat-header-cell *matHeaderCellDef> № контракта</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.contractNum }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef> Название</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.title }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="iin">
+            <mat-header-cell *matHeaderCellDef> ИИН</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.bin }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="payAccount">
+            <mat-header-cell *matHeaderCellDef> Расчетный счет</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.payAccount }} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="add">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="addClickTable(element)" matTooltip="Добавить">
+                <mat-icon> add</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="deleteClick(element)" matTooltip="Удалить">
+                <mat-icon> delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+
+        <mat-paginator [length]="totalRows"
+                       [pageSize]="pageSize"
+                       [pageIndex]="pageIndex"
+                       [pageSizeOptions]="pageSizeOptions"
+                       (page)="pageChanged($event)"
+                       aria-label="Select page"
+                       showFirstLastButtons>
+        </mat-paginator>
+      </div>
+
+      <div></div>
+
+    </div>
+
+    <div class="buttons-container">
+      <div></div>
+      <div>
+        <button mat-raised-button color="primary" (click)="addClick()"  *ngIf="hasAddB2BContractRole()"> Добавить</button>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="closeClick()"> Отмена</button>
+      </div>
+    </div>
+
+  </mat-tab>
+
+  <mat-tab label="">
+
+  </mat-tab>
+
+</mat-tab-group>
+

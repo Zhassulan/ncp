@@ -1,0 +1,35 @@
+<div class="wrapper">
+
+  <div class="header">
+    <div>
+      <mat-form-field>
+        <input matInput placeholder="Склад" [formControl]="branch" required>
+        <mat-hint>Введите склад</mat-hint>
+        @if (branch.hasError('required')) {
+          <mat-error>Введите склад</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="title" *ngIf="profile()">
+      <h3>Выбранный клиент {{ profile().value.client + ', ' + profile().value.bin}}</h3>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <app-clients-list [isMobipay]="false" [isCollector]="true" [(profile)]="profile"></app-clients-list>
+  </div>
+
+  <div class="buttons">
+    <div class="button" *ngIf="branch.value.length > 0 && profile()">
+      <button mat-raised-button color="primary" (click)="add()">
+        Добавить
+      </button>
+    </div>
+    <div class="button">
+      <button mat-raised-button color="primary" (click)="cancel()">
+        Отмена
+      </button>
+    </div>
+  </div>
+</div>

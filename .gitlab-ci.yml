@@ -1,0 +1,93 @@
+image: docker:latest
+
+cache:
+  key: key-2021
+  paths:
+    - dist
+
+variables:
+  DOCKER_DRIVER: overlay
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
+  DOCKER_TLS_CERTDIR: ""
+
+stages:
+  - package
+  - host-update
+
+docker-build-prod:
+  stage: package
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -f ./src/docker/prod/Dockerfile --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:latest --build-arg PROJECT=$CI_PROJECT_NAME --build-arg ENV=prod .
+    - docker push $CI_REGISTRY_IMAGE:latest
+
+docker-build-test:
+  stage: package
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "test"'
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -f ./src/docker/test/Dockerfile --cache-from $CI_REGISTRY_IMAGE:test --tag $CI_REGISTRY_IMAGE:test --build-arg PROJECT=$CI_PROJECT_NAME --build-arg ENV=test .
+    - docker push $CI_REGISTRY_IMAGE:test
+
+
+host-update-prod-node1:
+  stage: host-update
+  image: docker.tele2.kz/ext-images/sshpass:latest
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  before_script:
+    - mkdir /root/.ssh
+    - export ENV=prod
+    - export NODE_NAME=NODE1
+    - export NODE_IP="SSH_HOST_$NODE_NAME"
+    - export NODE_PASS="SSH_PASS_$NODE_NAME"
+    - ssh-keyscan -H ${!NODE_IP} >> ~/.ssh/known_hosts
+  script:
+    - export SSHPASS=${!NODE_PASS}
+    # create target directory, suppress error if exist
+    - sshpass -e ssh -T root@${!NODE_IP} mkdir -p /data/docker-compose/$CI_PROJECT_NAME
+    # copy service files
+    #host
+    - sshpass -e scp ./src/docker-compose/$ENV/${NODE_NAME,,}/docker-compose.yml root@${!NODE_IP}:/data/docker-compose/$CI_PROJECT_NAME/docker-compose.yml
+    - sshpass -e scp ./src/docker-compose/$ENV/${NODE_NAME,,}/down.sh root@${!NODE_IP}:/data/docker-compose/$CI_PROJECT_NAME/down.sh
+    - sshpass -e scp ./src/docker-compose/$ENV/${NODE_NAME,,}/up.sh root@${!NODE_IP}:/data/docker-compose/$CI_PROJECT_NAME/up.sh
+    - sshpass -e scp ./src/docker-compose/$ENV/${NODE_NAME,,}/restart.sh root@${!NODE_IP}:/data/docker-compose/$CI_PROJECT_NAME/restart.sh
+    # set permission for service files
+    - sshpass -e ssh -T root@${!NODE_IP} chmod o+x /data/docker-compose/$CI_PROJECT_NAME/down.sh
+    - sshpass -e ssh -T root@${!NODE_IP} chmod o+x /data/docker-compose/$CI_PROJECT_NAME/up.sh
+    - sshpass -e ssh -T root@${!NODE_IP} chmod o+x /data/docker-compose/$CI_PROJECT_NAME/restart.sh
+    - export RESTART="cd /data/docker-compose/$CI_PROJECT_NAME && bash ./restart.sh"
+    - sshpass -e ssh -T root@${!NODE_IP} docker image prune -af
+    - sshpass -e ssh -T root@${!NODE_IP} $RESTART
+
+
+target-host-test:
+  stage: host-update
+  image: docker.tele2.kz/ext-images/sshpass:latest
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+  before_script:
+    - mkdir /root/.ssh
+    - ssh-keyscan -H $SSH_HOST_TEST >> ~/.ssh/known_hosts
+  script:
+    - export SSHPASS=$SSH_PASS_TEST
+    # docker-compose
+    # create target directory, suppress error if exist
+    - sshpass -e ssh -T root@$SSH_HOST_TEST mkdir -p /data/docker-compose/$CI_PROJECT_NAME-test
+    # copy service files
+    #host
+    - sshpass -e scp ./src/docker-compose/test/docker-compose.yml root@$SSH_HOST_TEST:/data/docker-compose/$CI_PROJECT_NAME-test/
+    - sshpass -e scp ./src/docker-compose/test/down.sh root@$SSH_HOST_TEST:/data/docker-compose/$CI_PROJECT_NAME-test/
+    - sshpass -e scp ./src/docker-compose/test/up.sh root@$SSH_HOST_TEST:/data/docker-compose/$CI_PROJECT_NAME-test/
+    - sshpass -e scp ./src/docker-compose/test/restart.sh root@$SSH_HOST_TEST:/data/docker-compose/$CI_PROJECT_NAME-test/
+    # set permission for service files
+    - sshpass -e ssh -T root@$SSH_HOST_TEST chmod o+x /data/docker-compose/$CI_PROJECT_NAME-test/down.sh
+    - sshpass -e ssh -T root@$SSH_HOST_TEST chmod o+x /data/docker-compose/$CI_PROJECT_NAME-test/up.sh
+    - sshpass -e ssh -T root@$SSH_HOST_TEST chmod o+x /data/docker-compose/$CI_PROJECT_NAME-test/restart.sh
+    - export RESTART="cd /data/docker-compose/$CI_PROJECT_NAME-test && bash ./restart.sh"
+    - sshpass -e ssh -T root@$SSH_HOST_TEST docker image prune -af
+    - sshpass -e ssh -T root@$SSH_HOST_TEST $RESTART
+

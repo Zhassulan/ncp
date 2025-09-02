@@ -1,0 +1,13 @@
+.container {
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: repeat(7, minmax(3vh, auto));
+    grid-template-areas: "title value";
+}
+
+.title {
+}
+
+.value {
+    word-wrap: break-word;
+}

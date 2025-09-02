@@ -1,0 +1,32 @@
+<div class="form">
+
+    <div class="header">
+        <h1 mat-dialog-title>Загрузка реестра</h1>
+    </div>
+
+    <div class="list">
+        <div mat-dialog-content>
+            <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label></mat-label>
+                <textarea matInput class="area" [(ngModel)]="data.registry"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="buttons">
+            <div></div>
+            <div>
+                <div mat-dialog-actions>
+                    <button mat-raised-button color="primary" [mat-dialog-close]="data.registry" cdkFocusInitial>Загрузить</button>
+                </div>
+            </div>
+            <div>
+                <div mat-dialog-actions>
+                    <button mat-raised-button color="primary" [mat-dialog-close]="">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

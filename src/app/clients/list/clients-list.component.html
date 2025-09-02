@@ -1,0 +1,124 @@
+<div class="container">
+
+  <div class="top">
+    <div class="header">
+
+      <div class="item">
+        <mat-form-field>
+          <input matInput [(ngModel)]="inputClientIIN" (keyup)="applyFilterClientIIN()" placeholder="ИИН"
+                 (keydown.enter)="onKeydown($event)">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="item">
+        <mat-form-field>
+          <input matInput [(ngModel)]="inputClientName" (keyup)="applyFilterClientName()" placeholder="Название"
+                 (keydown.enter)="onKeydown($event)">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="find">
+        <button mat-raised-button color="primary" (click)="find()">Поиск</button>
+      </div>
+
+      <div class="update">
+        <div *ngIf="isMobipay && hasMobipayLimitsUpdateRole() && !hasReadOnlyRole()">
+          <button mat-raised-button color="primary" (click)="dlgUpdateLimits()">Обновить лимиты</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="profiles">
+    <mat-table [dataSource]="dataSource"
+               matSort
+               matSortActive="creationDate"
+               matSorirection="desc"
+               matSorisableClear
+               (matSortChange)="sortData($event)">
+
+      <div *ngIf="isCollector">
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+      </div>
+
+      <ng-container matColumnDef="client">
+        <mat-header-cell *matHeaderCellDef> Название</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.client }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="bin">
+        <mat-header-cell *matHeaderCellDef> ИИН/БИН</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.bin }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="managedBy">
+        <mat-header-cell *matHeaderCellDef> Менеджер</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.managedBy }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="types">
+        <mat-header-cell *matHeaderCellDef> Тип</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.types }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="segments">
+        <mat-header-cell *matHeaderCellDef> Сегмент</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.segments }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="payments">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div *ngIf="!isCollector">
+            <button mat-icon-button (click)="openClientPayments(element)" matTooltip="Платежи">
+              <mat-icon>payments</mat-icon>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="profile">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div *ngIf="!isCollector">
+            <button mat-icon-button (click)="openClientProfile(element)" matTooltip="Профиль"
+                    *ngIf="hasViewClientProfileRole()">
+              <mat-icon>person</mat-icon>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"
+               [ngClass]="{highlighted: selection.isSelected(row)}"
+               (click)="selection.toggle(row)"></mat-row>
+
+    </mat-table>
+
+    <mat-paginator [length]="totalRows"
+                   [pageSize]="pageSize"
+                   [pageIndex]="currentPage"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="pageChanged($event)"
+                   aria-label="Select page"
+                   showFirstLastButtons="true">
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+.mainContainer {
+  display: grid;
+  grid-template-areas:
+          "title title title title"
+          "msg msg msg msg"
+          ". . ok cancel";
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto auto 20% 20%;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden !important;
+}
+
+.title {
+  grid-area: title;
+  justify-self: center;
+}
+
+.msg {
+  grid-area: msg;
+  justify-self: left;
+}
+
+.btnOk {
+  grid-area: ok;
+  justify-self: end;
+}
+
+.btnCancel {
+  grid-area: cancel;
+  justify-self: end;
+  gap: 5px;
+}

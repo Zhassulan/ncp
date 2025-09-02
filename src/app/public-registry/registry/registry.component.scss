@@ -1,0 +1,51 @@
+.object {
+    display: grid;
+    grid-template-areas:
+            "topGap"
+            "item";
+    grid-template-rows: 10px auto;
+    grid-template-columns: auto;
+    grid-gap: 5px;
+    justify-items: center;
+}
+
+.topGap {
+    grid-area: topGap;
+}
+
+.item {
+    grid-area: item;
+    width: 75%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto 10%;
+    grid-template-rows: 70px auto;
+    grid-template-areas:
+            "header header header menu"
+            "properties . . ."
+            "details details details .";
+    justify-items: stretch;
+    align-self: start;
+}
+
+.header {
+    grid-area: header;
+    align-self: center;
+    justify-self: center;
+}
+
+.menu {
+    grid-area: menu;
+    align-self: end;
+    justify-self: right;
+}
+
+.properties {
+    grid-area: properties;
+}
+
+.details {
+    grid-area: details;
+}

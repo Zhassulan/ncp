@@ -1,0 +1,66 @@
+<form [formGroup]="frmDetail">
+
+    <p class="mat-h3">Абонент:</p>
+
+    <div class="container">
+        <div class="item1">
+            <mat-form-field>
+                <input matInput
+                       placeholder="Номер телефона"
+                       [formControl]="phoneControl"
+                       (input)="phoneChanged()"
+                       ngClass="inputWidth"
+                       [matAutocomplete]="autoCompleteMsisdn">
+                <mat-autocomplete #autoCompleteMsisdn="matAutocomplete">
+                    <mat-option *ngFor="let phone of filteredPhones | async" [value]="phone">
+                        {{ phone }}
+                    </mat-option>
+                </mat-autocomplete>
+                <button *ngIf="phoneControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearPhone()">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-error *ngIf="phoneControl.errors">
+                    количество цифр 10
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="item2">
+            <mat-form-field>
+                <input matInput
+                       placeholder="Лицевой счёт"
+                       [formControl]="accountControl"
+                       (input)="accountChanged()"
+                       ngClass="inputWidth"
+                       [matAutocomplete]="autoCompleteAccount">
+                <mat-autocomplete #autoCompleteAccount="matAutocomplete">
+                    <mat-option *ngFor="let account of filteredAccounts | async" [value]="account">
+                        {{ account }}
+                    </mat-option>
+                </mat-autocomplete>
+                <button *ngIf="accountControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearAccount()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="item3">
+            <mat-form-field>
+                <input matInput placeholder="Сумма" formControlName="sumControl" required>
+                <span matSuffix> тг.</span>
+                <button *ngIf="sumControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSum()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="item4">
+            <button mat-raised-button color="primary"
+                    [disabled]="!canAddDetail()"
+                    (click)="addDetail()"
+                    matTooltip="Добавить разноску">
+                Добавить
+            </button>
+        </div>
+    </div>
+
+</form>
+
+

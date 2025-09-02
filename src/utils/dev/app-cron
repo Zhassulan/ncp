@@ -1,0 +1,2 @@
+0,10,20,30,40,50 * * * * /usr/sbin/logrotate -v /etc/logrotate.d/nginx > /proc/1/fd/1 2>/proc/1/fd/2
+# end of cron tab

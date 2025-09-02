@@ -1,0 +1,191 @@
+<div class="wrapper">
+
+  <div>
+
+  </div>
+
+  <div>
+
+    <div class="fields-container">
+
+      <div class="fields-left-container">
+
+        <div>
+          <h3> Наименование клиента </h3>
+        </div>
+
+        <div>
+          <h3> ИИН клиента</h3>
+        </div>
+
+        <div>
+          <h3> Контактное лицо</h3>
+        </div>
+
+        <div>
+          <h3> Контактный телефон</h3>
+        </div>
+
+        <div>
+          <h3> E-mail</h3>
+        </div>
+
+        <div>
+          <h3> Юридический адрес</h3>
+        </div>
+
+        <div>
+          <h3> Регион </h3>
+        </div>
+
+      </div>
+
+
+      <div class="fields-right-container-container">
+
+        <div>
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput [formControl]="titleFormControl"/>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput [formControl]="binFormControl"/>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput [formControl]="contactPersonFormControl"/>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput [formControl]="contactPhoneFormControl"/>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label></mat-label>
+            <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                   placeholder="Например, pat@example.com">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Пожалуйста введите почтовый адрес
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              <strong>Требуется</strong> почтовый адрес
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput [formControl]="addressFormControl"/>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="regions">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label></mat-label>
+            <mat-select [(value)]="region.address">
+              <mat-option *ngFor="let item of regions" [value]="item.address">
+                {{ item.address }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="buttons-container">
+      <div></div>
+      <div>
+        <button mat-raised-button color="primary" (click)="saveClick()"> Сохранить</button>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="addContractClick()"> Добавить</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
+
+  </div>
+
+</div>
+
+<div class="table_container">
+
+  <div></div>
+
+  <div>
+    <mat-table [dataSource]="dataSource"
+               matSort
+               matSortActive="creationDate"
+               matSorirection="desc"
+               matSorisableClear>
+
+      <ng-container matColumnDef="clientId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Клиент ID</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.bercutClientId }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contractNumber">
+        <mat-header-cell *matHeaderCellDef> № контракта</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.contractNum }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="bik">
+        <mat-header-cell *matHeaderCellDef> БИК</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.bik }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="iin">
+        <mat-header-cell *matHeaderCellDef> ИИН</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.bin }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="payAccount">
+        <mat-header-cell *matHeaderCellDef> Расчетный счет</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.payAccount }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="manager">
+        <mat-header-cell *matHeaderCellDef> Менеджер</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.managedBy }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="delete(element)" matTooltip="Удалить">
+            <mat-icon> delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+    <mat-paginator [length]="totalRows"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="pageChanged($event)"
+                   aria-label="Select page"
+                   showFirstLastButtons="true">
+    </mat-paginator>
+  </div>
+
+  <div></div>
+
+</div>

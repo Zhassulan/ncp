@@ -1,0 +1,55 @@
+<div>
+  <mat-table [dataSource]="dataSource"
+             matSort
+             matSortActive="creationDate"
+             matSorirection="desc"
+             matSorisableClear>
+
+    <ng-container matColumnDef="clientName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Название</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.clientName }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="clientIin">
+      <mat-header-cell *matHeaderCellDef> ИИН/БИН</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.clientIin }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="managedBy">
+      <mat-header-cell *matHeaderCellDef> Менеджер</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.managedBy }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="types">
+      <mat-header-cell *matHeaderCellDef> Тип</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.types }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="segments">
+      <mat-header-cell *matHeaderCellDef> Сегмент</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.segments }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="deleteClick(element)" matTooltip="Удалить">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+
+  <mat-paginator [length]="totalRows"
+                 [pageSize]="pageSize"
+                 [pageIndex]="currentPage"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="pageChanged($event)"
+                 aria-label="Select page"
+                 showFirstLastButtons>
+  </mat-paginator>
+</div>

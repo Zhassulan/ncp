@@ -1,0 +1,160 @@
+<div>
+  <mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="docnum">
+      <mat-header-cell *matHeaderCellDef> № платежа</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.docnum }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Сортировать по дате"> Дата
+      </mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.created | date: "dd.MM.yyyy HH:mm" }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="sender">
+      <mat-header-cell *matHeaderCellDef> Отправитель</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.sender }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="bin">
+      <mat-header-cell *matHeaderCellDef> ИИН</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.bin }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <mat-header-cell *matHeaderCellDef> Назначение платежа</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.details }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Статус</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element">
+
+        <section
+          *ngIf="element.status == PaymentStatus.DISTRIBUTED || element.status == PaymentStatus.TRANSIT_DISTRIBUTED">
+          <div class="status-value">
+            <div>{{ element.status | paymentStatusPipe: element.status }}</div>
+            <div> {{ element.distributed | date:"dd.MM.yyyy HH:mm" }}</div>
+          </div>
+        </section>
+
+        <div
+          *ngIf="element.status !== PaymentStatus.DISTRIBUTED && element.status !== PaymentStatus.TRANSIT_DISTRIBUTED">
+          {{ element.status | paymentStatusPipe: element.status }}
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="account">
+      <mat-header-cell *matHeaderCellDef>Счёт</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element">
+        Отправитель:<br/> {{ element.accountSender }} <br/>
+        Получатель:<br/> {{ element.accountRecipient }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="sum">
+      <mat-header-cell *matHeaderCellDef> Сумма</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.sum }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="knp">
+      <mat-header-cell *matHeaderCellDef> КНП</mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element"> {{ element.knp }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="agent">
+      <mat-header-cell *matHeaderCellDef> Агент</mat-header-cell>
+      <mat-cell class="mat-small"
+                *matCellDef="let element"> {{ element.agent }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="rowMenu">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell class="mat-small" *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+
+          <button mat-menu-item (click)="menuOnRowOpenPayment(element)">
+            <span>Открыть</span>
+          </button>
+
+
+          <div *ngIf="canEditPayment()">
+
+            <button mat-menu-item [disabled]="!canTransit(element)" (click)="menuOnRowTransit(element)">
+              <span>На транзит</span>
+            </button>
+
+            <button mat-menu-item [disabled]="!canDelTransit(element)" (click)="menuOnRowDeleteTransit(element)">
+              <span>Удалить с транзита</span>
+            </button>
+
+            <button mat-menu-item (click)="menuOnRowChangeMobipay(element)" *ngIf="canMoveToMobipay(element)">
+              <span>Перенести в Mobipay платежи</span>
+            </button>
+
+            <button mat-menu-item (click)="menuOnRowChangeMobipay(element)" *ngIf="canMoveFromMobipay(element)">
+              <span>Перенести в обычные платежи</span>
+            </button>
+
+            <div *ngIf="isClientPaymentsComponent">
+              <button mat-menu-item (click)="menuOnRowDistributeMobipay(element)" *ngIf="canMobipayDistribute(element)">
+                <span>Разнести</span>
+              </button>
+
+              <button mat-menu-item (click)="menuOnRowDistributeMobipay(element)" *ngIf="canMobipayCancel(element)">
+                <span>Отменить</span>
+              </button>
+            </div>
+
+            <div *ngIf="getAuthService().hasHiddenRole()">
+              <div *ngIf="!isHiddenComponent">
+                <button mat-menu-item (click)="hide(element)">
+                  <span>Скрыть</span>
+                </button>
+              </div>
+
+              <div *ngIf="isHiddenComponent">
+                <button mat-menu-item (click)="unhide(element)">
+                  <span>Показать</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </mat-menu>
+
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row [ngClass]="{'make-yellow-light': row.mobipay == true && row.status == PaymentStatus.NEW,
+        'make-green': row.status == PaymentStatus.DISTRIBUTED ||
+        row.status == PaymentStatus.TRANSIT_DISTRIBUTED, 'make-red': row.status == PaymentStatus.ERR ||
+        row.status == PaymentStatus.TRANSIT_ERR, 'make-grey': row.status == PaymentStatus.DEFERRED,
+        'make-yellow': row.status == PaymentStatus.CANCELLED || row.status == PaymentStatus.TRANSIT_CANCELLED}"
+             *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+
+  </mat-table>
+
+  <mat-paginator [pageSize]="paginationParam.pageSize"
+                 [pageIndex]="paginationParam.page"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="pageChanged($event)"
+                 aria-label="Select page"
+                 showFirstLastButtons="true">
+  </mat-paginator>
+</div>

@@ -1,0 +1,48 @@
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="column">
+        <p class="mat-h3"><b>БИН:</b></p>
+    </div>
+    <div fxLayout="column" ngClass="longTitle">
+        <p class="mat-h3">{{ registry ? registry.props.bin : null }}</p>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="column">
+        <p class="mat-h3"><b>Компания:</b></p>
+    </div>
+    <div fxLayout="column" ngClass="longTitle">
+        <p class="mat-h3">{{ registry ? registry.props.company : null }}</p>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="column">
+        <p class="mat-h3"><b>Телефон:</b></p>
+    </div>
+    <div fxLayout="column" ngClass="longTitle">
+        <p class="mat-h3">{{ registry ? registry.props.phone : null}}</p>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="column">
+        <p class="mat-h3"><b>E-mail:</b></p>
+    </div>
+    <div fxLayout="column" ngClass="longTitle">
+        <p class="mat-h3">{{ registry ? registry.props.email : null }}</p>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="column">
+        <p class="mat-h3"><b>Комментарий:</b></p>
+    </div>
+    <div fxLayout="column" ngClass="longTitle">
+        <p class="mat-h3">{{ registry ? registry.props.comment : null }}</p>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxLayout="column">
+        <p class="mat-h3"><b>Общая сумма реестра:</b></p>
+    </div>
+    <div fxLayout="column" ngClass="longTitle">
+        <p class="mat-h3">{{ registry ? (registry.props.total | currency : ' тг.') : null }}</p>
+    </div>
+</div>

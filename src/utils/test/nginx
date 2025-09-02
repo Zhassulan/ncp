@@ -1,0 +1,15 @@
+/var/log/nginx/*.log {
+        create 0644 root root
+        daily
+        hourly
+        missingok
+        rotate 365
+        dateext
+        dateformat -%Y%m%d-%H
+        notifempty
+        sharedscripts
+        postrotate
+                [ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`
+                /cleanup.sh
+        endscript
+}

@@ -1,0 +1,41 @@
+<input type="file" #file style="display: none" (change)="onFileAdded()"/>
+
+<div class="mainContainer">
+    <div class="title">
+        <h1 mat-dialog-title>Обновление лимитов мобипей</h1>
+    </div>
+
+  <div class="limits">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{ element.position }} </td>
+      </ng-container>
+      <ng-container matColumnDef="partnerCode">
+        <th mat-header-cell *matHeaderCellDef> Код партнера </th>
+        <td mat-cell *matCellDef="let element"> {{element.partnerCode}} </td>
+      </ng-container>
+      <ng-container matColumnDef="limit">
+        <th mat-header-cell *matHeaderCellDef> Лимит </th>
+        <td mat-cell *matCellDef="let element"> {{element.limit}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 7, 10]"
+                   showFirstLastButtons="true"
+                   aria-label="Выберите страницу">
+    </mat-paginator>
+  </div>
+
+    <div class="btnOpen">
+        <button mat-raised-button color="primary" class="add-files-btn" (click)="addFile()"> Открыть файл </button>
+    </div>
+    <div class="btnProcess">
+        <button mat-raised-button color="primary" (click)="apply()" *ngIf="showApplyButton"> Применить </button>
+    </div>
+    <div class="btnCancel">
+        <button mat-raised-button color="primary" [mat-dialog-close]="false"> Отмена </button>
+    </div>
+
+</div>

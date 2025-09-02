@@ -1,0 +1,28 @@
+<div class="object">
+  <div class="topGap"></div>
+  <div class="item">
+    <mat-card appearance="outlined">
+      <div class="container">
+
+        <div class="header">
+          <h2 class="mat-h2">Реестр # {{ registry ? registry.props.id : null}}
+            от {{ registry ? (registry.props.created | date) : null }}</h2>
+        </div>
+
+        <div class="menu">
+          <app-registry-menu [registry]="registry"></app-registry-menu>
+        </div>
+
+        <div class="properties">
+          <app-registry-properties [registry]="registry"></app-registry-properties>
+        </div>
+
+        <div class="details">
+          <mat-divider></mat-divider>
+          <app-registry-details [details]="registry.details"></app-registry-details>
+        </div>
+
+      </div>
+    </mat-card>
+  </div>
+</div>
